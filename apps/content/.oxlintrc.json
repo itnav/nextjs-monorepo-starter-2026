@@ -1,0 +1,12 @@
+{
+  "plugins": ["react", "nextjs"],
+  "settings": {
+    "next": {
+      "rootDir": "."
+    }
+  },
+  "rules": {
+    "nextjs/no-img-element": "warn",
+    "nextjs/no-typos": "warn"
+  }
+}
