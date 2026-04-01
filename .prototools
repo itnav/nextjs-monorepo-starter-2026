@@ -1,0 +1,8 @@
+proto = "latest"
+moon = "latest"
+node = "lts"
+pnpm = "10.33.0"
+
+[settings]
+auto-clean = true
+auto-install = true

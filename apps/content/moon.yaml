@@ -1,0 +1,61 @@
+# Documents: https://moonrepo.dev/docs/config/project
+
+id: "content"
+layer: "application"
+stack: "frontend"
+tags:
+  - "viteplus"
+
+project:
+  description: "Content - Next.js アプリケーション"
+
+dependsOn:
+  - id: "database"
+
+fileGroups:
+  sources:
+    - "next.config.ts"
+    - "postcss.config.mjs"
+    - "tsconfig.json"
+    - "package.json"
+    - "public/**/*"
+    - "src/**/*"
+
+tasks:
+  #################
+  ## Development ##
+  #################
+
+  dev:
+    command: "next dev --turbopack"
+    preset: "server"
+
+  ###########
+  ## Build ##
+  ###########
+
+  build:
+    command: "next build"
+    inputs:
+      - "@group(sources)"
+    outputs:
+      - ".next"
+    options:
+      runInCI: true
+
+  #############
+  ## Preview ##
+  #############
+
+  preview:
+    command: "next start"
+    preset: "server"
+    deps:
+      - "preview/build"
+
+  preview/build:
+    command: "next build"
+    inputs:
+      - "@group(sources)"
+    outputs:
+      - ".next"

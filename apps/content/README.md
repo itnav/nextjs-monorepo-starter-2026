@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# content
 
-## Getting Started
+Next.js アプリケーション。
 
-First, run the development server:
+## ディレクトリ構造
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+src/
+├── app/
+│   ├── globals.css         # グローバル CSS
+│   ├── _components/        # app 全体で共有するコンポーネント
+│   ├── (page)/             # ページ系ルート（クライアントレンダリング中心）
+│   │   ├── layout.tsx      # ルートレイアウト（HTML / フォント / Header / Footer）
+│   │   └── (home)/         # トップページ（`/`）
+│   │       └── page.tsx
+│   └── (server)/           # サーバー系ルート（API・サーバーアクション）
+│       └── api/
+│           └── route.ts    # `/api` エンドポイント
+├── bases/                  # 環境変数・定数などのベース設定
+├── libs/                   # 外部ライブラリのラッパー（shadcn 等）
+└── utils/                  # ユーティリティ
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### ルートグループの設計方針
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`app/` 直下にルートレイアウト (`layout.tsx`) を置かず、各ルートグループがそれぞれ独自のルートレイアウトを持つ。ランタイムコンテキストと役割の分離が目的。
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **(page)** - UI を返すページルート。`<html>` / フォント / CSS / Header / Footer をすべてこのグループの `layout.tsx` で定義する。
+- **(server)** - API Route やサーバー専用のエンドポイント。最小の `<html>` シェルのみ。UI レイアウトは持たない。
 
-## Learn More
+この分離により、ページとサーバーロジックが混在せず、各ルートの責務が明確になる。
 
-To learn more about Next.js, take a look at the following resources:
+## 開発
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+moon run content:dev       # 開発サーバー起動
+moon run content:build     # プロダクションビルド
+moon run content:preview   # プロダクションプレビュー
+moon run content:check     # lint + format + types チェック
+moon run content:format    # lint --fix + fmt
+moon run content:test      # テスト実行
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## shadcn/ui
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`:/` エイリアスを使用。oxlint は `src/libs/shadcn/**` を除外済み。

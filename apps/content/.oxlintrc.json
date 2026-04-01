@@ -1,5 +1,5 @@
 {
-  "plugins": ["react", "nextjs"],
+  "plugins": ["react", "nextjs", "jsdoc"],
   "settings": {
     "next": {
       "rootDir": "."
@@ -7,6 +7,14 @@
   },
   "rules": {
     "nextjs/no-img-element": "warn",
-    "nextjs/no-typos": "warn"
-  }
+    "nextjs/no-typos": "warn",
+    "jsdoc/require-param": ["warn", { "exemptedBy": ["inheritdoc", "jsx", "api"] }],
+    "jsdoc/require-param-description": "warn",
+    "jsdoc/require-returns": ["warn", { "exemptedBy": ["inheritdoc", "jsx", "api"] }],
+    "jsdoc/check-tag-names": [
+      "warn",
+      { "definedTags": ["remarks", "jsx", "jsxImportSource", "api"] }
+    ]
+  },
+  "ignorePatterns": ["src/libs/shadcn/**"]
 }

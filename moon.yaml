@@ -1,0 +1,47 @@
+# Documents: https://moonrepo.dev/docs/config/project
+
+id: "root"
+tags:
+  - "viteplus"
+
+tasks:
+  ########
+  ## AI ##
+  ########
+
+  ai/rulesync:
+    command: "pnpx rulesync generate --delete -t claudecode,codexcli,cursor -f rules,ignore,mcp,commands,subagents,skills,hooks"
+    options:
+      cache: false
+
+  ##################
+  ## Spell Check ##
+  ##################
+
+  check/spell:
+    command: "pnpx cspell ."
+    options:
+      runInCI: true
+
+  ###########
+  ## Ready ##
+  ###########
+
+  ready:
+    deps:
+      - target: "quality"
+      - target: "test"
+        optional: true
+      - target: "build"
+        optional: true
+    options:
+      runDepsInParallel: false
+
+  ###########
+  ## Clear ##
+  ###########
+
+  clear/node-modules:
+    command: 'pnpx rimraf "**/node_modules"'
+    options:
+      cache: false

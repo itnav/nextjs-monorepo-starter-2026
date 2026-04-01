@@ -1,0 +1,21 @@
+{
+  "name": "@apps/database",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts",
+    "./schemas/*": "./src/schemas/*.ts"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.15.0",
+    "drizzle-orm": "^0.44.0",
+    "valibot": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "drizzle-kit": "^0.31.0",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

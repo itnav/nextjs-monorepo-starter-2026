@@ -1,0 +1,57 @@
+# Documents: https://moonrepo.dev/docs/config/tasks
+# vite-plus (vp) を使用するプロジェクト用タスク定義
+
+# yaml-language-server: $schema=../cache/schemas/tasks.json
+$schema: "../cache/schemas/tasks.json"
+
+inheritedBy:
+  tag: "viteplus"
+
+tasks:
+  ###########
+  ## Check ##
+  ###########
+
+  check/lint:
+    command: "vp lint"
+    options:
+      runInCI: true
+
+  check/format:
+    command: "vp fmt --check"
+    options:
+      runInCI: true
+
+  check/types:
+    command: "vp check"
+    options:
+      runInCI: true
+
+  ############
+  ## Format ##
+  ############
+
+  format/lint:
+    command: "vp lint --fix"
+    options:
+      cache: false
+
+  format/code:
+    command: "vp fmt"
+    options:
+      cache: false
+
+  ##########
+  ## Test ##
+  ##########
+
+  test:
+    command: "vp test"
+    options:
+      runInCI: true
+
+  test/watch:
+    command: "vp test --watch"
+    options:
+      cache: false
+      runInCI: false

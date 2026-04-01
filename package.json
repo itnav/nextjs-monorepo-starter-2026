@@ -4,11 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "ready": "vp fmt && vp lint && vp run test -r && vp run build -r",
-    "dev": "vp run website#dev",
-    "prepare": "vp config"
+    "ready": "vp fmt && vp lint && vp run spell-check && vp run test -r && vp run build -r",
+    "dev": "vp run content#dev",
+    "prepare": "vp config",
+    "spell-check": "cspell .",
+    "postinstall": "pnpx rulesync generate"
   },
   "devDependencies": {
+    "cspell": "catalog:",
     "vite-plus": "catalog:"
   },
   "engines": {

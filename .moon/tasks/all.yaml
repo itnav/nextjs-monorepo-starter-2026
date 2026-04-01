@@ -1,0 +1,61 @@
+# Documents: https://moonrepo.dev/docs/config/tasks
+
+# yaml-language-server: $schema=../cache/schemas/tasks.json
+$schema: "../cache/schemas/tasks.json"
+
+taskOptions:
+  outputStyle: "stream"
+  runInCI: false
+
+tasks:
+  ###############
+  ## Execution ##
+  ###############
+
+  exec:
+    type: "run"
+    command: "eval"
+    toolchains: "system"
+
+  #############
+  ## Quality ##
+  #############
+
+  quality:
+    deps:
+      - target: "format"
+        optional: true
+      - target: "check"
+        optional: true
+    options:
+      runDepsInParallel: true
+
+  ###########
+  ## Check ##
+  ###########
+
+  check:
+    deps:
+      - target: "check/lint"
+        optional: true
+      - target: "check/format"
+        optional: true
+      - target: "check/types"
+        optional: true
+      - target: "check/spell"
+        optional: true
+    options:
+      runDepsInParallel: true
+
+  ############
+  ## Format ##
+  ############
+
+  format:
+    deps:
+      - target: "format/lint"
+        optional: true
+      - target: "format/code"
+        optional: true
+    options:
+      runDepsInParallel: false

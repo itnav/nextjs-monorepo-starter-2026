@@ -1,0 +1,13 @@
+# Documents: https://moonrepo.dev/docs/config/toolchain
+
+# yaml-language-server: $schema=./cache/schemas/toolchain.json
+$schema: "./cache/schemas/toolchain.json"
+
+javascript:
+  packageManager: "pnpm"
+  dedupeOnLockfileChange: false
+  dependencyVersionFormat: "workspace"
+  syncProjectWorkspaceDependencies: true
+
+typescript:
+  syncProjectReferences: false
